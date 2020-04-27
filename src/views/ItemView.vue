@@ -1,30 +1,57 @@
 <template>
   <div>
-    <div v-for="ask in asks">
-        {{ask.title}}
-    </div>
+    <section>
+      <div class="user-container">
+        <div>
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="user-description">
+          <router-link :to="`/user/${fetchedItem.user}`">
+            {{fetchedItem.user}}
+          </router-link>
+          <div class="time"> 
+            {{ fetchedItem.time_ago }}
+          </div>
+        </div>
+      </div>
+        <h2>{{fetchedItem.title}}</h2>
+        <div v-html="fetchedItem.content">
+        </div>
+    </section>
+    <section>
+
+    </section>
   </div>
 </template>
 
 <script>
-import { fetchNewsList } from '../api/index.js';
+import { mapGetters } from 'vuex';
+
 export default {
-  data(){
-    return {
-      asks: []
-    }
+  computed : {
+    ...mapGetters(['fetchedItem']),
   },
   created(){
-    fetchNewsList()
-      .then((response) => {
-        console.log(response);
-        this.asks = response.data;
-      }) 
-      .catch((err) => console.log(err))
+    const itemId = this.$route.params.id;
+    this.$store.dispatch("FETCH_ITEM", itemId);
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+.user-container {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+.fa-user {
+  font-size: 2.5rem;
+}
+.user-description {
+  padding-left: 8px;
+}
+.time {
+  font-size: 0.7rem;
+}
 </style>
+

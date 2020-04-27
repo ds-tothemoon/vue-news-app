@@ -1,26 +1,21 @@
 <template>
     <div>
-      <div v-for="user in users">
-        {{user.title}}
+      <div v-for="item in this.$store.state.news">
+        <a :href="item.url">
+          {{item.title}}
+        </a>
+        <small>{{item.time_ago}} by  
+          <router-link :to="`/user/${item.user}`">{{item.user}}</router-link>
+        </small>
       </div>
     </div>
 </template>
 
 <script>
-import { fetchNewsList } from '../api/index.js';
+
 export default {
-  data(){
-    return {
-      users: []
-    }
-  },
   created(){
-    fetchNewsList()
-      .then((response) => {
-        console.log(response);
-        this.users = response.data;
-      }) 
-      .catch((err) => console.log(err))
+    this.$store.dispatch('FETCH_NEWS');
   }
 }
 </script>

@@ -34,11 +34,11 @@ export const router = new VueRouter({
             component: AskView,
         },
         {
-            path: '/item',
+            path: '/item/:id',
             component: ItemView,
         },
         {
-            path: '/user',
+            path: '/user/:id',
             component: UserView,
         },
     ]
