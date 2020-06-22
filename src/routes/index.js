@@ -5,6 +5,7 @@ import AskView from '../views/AskView.vue';
 import JobsView from '../views/JobsView.vue';
 import ItemView from '../views/ItemView.vue';
 import UserView from '../views/UserView.vue';
+import MapView from '../views/MapView.vue';
 
 Vue.use(VueRouter);
 
@@ -41,5 +42,9 @@ export const router = new VueRouter({
             path: '/user/:id',
             component: UserView,
         },
+        {
+            path:'/map',
+            component: MapView,
+        }
     ]
 });
